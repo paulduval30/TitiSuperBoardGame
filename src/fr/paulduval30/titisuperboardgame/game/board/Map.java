@@ -16,7 +16,7 @@ public class Map
         {
             for(int j = 0; j < nbLine; j++)
             {
-                this.grid[i][j] = new Cell(i, j, "empty");
+                this.grid[i][j] = new Cell(i, j, "empty", true, 1);
             }
         }
     }
@@ -58,9 +58,13 @@ public class Map
         this.grid = grid;
     }
 
-    public void setCell(int line, int col, String type)
+    public void setCell(int line, int col, String type, boolean walkable, int cost)
     {
-        this.grid[line][col] = new Cell(line, col, type);
+        this.grid[line][col] = new Cell(line, col, type, walkable, cost);
     }
 
+    public int getCost(int line, int col)
+    {
+        return this.grid[line][col].getCost();
+    }
 }
