@@ -252,7 +252,7 @@ public class Character
 
     public void dammage(int dammage)
     {
-        this.life -= 20;
+        this.life -= dammage;
     }
     public void nextAction()
     {

@@ -4,9 +4,9 @@ import fr.paulduval30.titisuperboardgame.game.Character.Character;
 
 public class LameDuSacrifice extends Action
 {
-    public LameDuSacrifice(int po, boolean ldv)
+    public LameDuSacrifice(int po, boolean ldv, String name)
     {
-        super(po, ldv);
+        super(po, ldv, name);
     }
 
     @Override

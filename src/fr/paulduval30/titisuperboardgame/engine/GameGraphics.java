@@ -1,7 +1,6 @@
 package fr.paulduval30.titisuperboardgame.engine;
 
 import fr.paulduval30.titisuperboardgame.utils.ArrayUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 import java.text.AttributedCharacterIterator;
@@ -157,13 +156,13 @@ public class GameGraphics
 						  float sy2, Color bgcolor)
 	{
 		// TODO
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 	public void drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2)
 	{
 		// TODO
-		throw new NotImplementedException();
+		//throw new NotImplementedException();
 	}
 
 	public void drawLine(float x1, float y1, float x2, float y2)

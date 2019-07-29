@@ -35,9 +35,19 @@ public class Main
             Team red = new Team();
             Team blue = new Team();
             g.addPlayer(new Character("Aragorn", 0,0,4,0, 180, g, red), red);
-            g.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true));
-            g.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true));
+            g.addPlayer(new Character("Drizzt", 0,1,5,0, 180, g, red), red);
             g.addPlayer(new Character("Legolas", 2,2,4,0, 90, g, blue), blue);
+            g.addPlayer(new Character("Oziris", 2,3,4,0, 180, g, blue), blue);
+            g.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
+            g.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
+            g.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" ));
+            g.getPlayers().get(1).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
+            g.getPlayers().get(1).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
+            g.getPlayers().get(1).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1"));
+            g.getPlayers().get(2).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
+            g.getPlayers().get(2).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
+            g.getPlayers().get(2).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1"));
+
             engine.setScreen(new BoardScreen(g));
             engine.start();
             g.initGame();
