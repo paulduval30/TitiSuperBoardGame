@@ -59,7 +59,7 @@ public class CharacterMenu extends Component
         this.actions = new ArrayList<>();
         for(String key : game.getCurrentPlayer().getPowers().keySet())
         {
-            this.actions.add(new ActionButton(key, 0,0,200,100,Color.WHITE, Color.DARK_GRAY));
+            this.actions.add(new ActionButton(key, 0,0,200,100,Color.WHITE, Color.DARK_GRAY, this.game, this.game.getCurrentPlayer()));
         }
         for(int i = 0; i < actions.size(); i++)
         {

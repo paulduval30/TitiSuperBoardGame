@@ -1,6 +1,7 @@
 package fr.paulduval30.titisuperboardgame.component;
 
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
+import fr.paulduval30.titisuperboardgame.game.Character.Character;
 import fr.paulduval30.titisuperboardgame.game.Game;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public class ActionButton extends Button
         {
             if(engine.getInput().isMousePressed(MouseEvent.BUTTON1) && this.isOver)
             {
-
+                this.character.getActions().get(this.text).act(this.game.getPlayers().get(1), this.game.getCurrentPlayer());
             }
         }
     }

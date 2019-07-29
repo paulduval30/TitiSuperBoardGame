@@ -118,6 +118,11 @@ public class Character
         this.isCurrent = false;
     }
 
+    public HashMap<String, Action> getActions()
+    {
+        return this.powers;
+    }
+
     public void addAction(String name, Action a)
     {
         this.powers.put(name, a);
