@@ -12,8 +12,9 @@ public class AttaqueArmeNiveauTrois extends Action
     @Override
     public void act(Character target, Character origin)
     {
+        target.dammage((int)(Math.random() * 14) +2);
         origin.nextAction();
-        target.dammage((int)(Math.random() * 20) +1);
+
 
     }
 }

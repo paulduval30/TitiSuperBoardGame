@@ -12,6 +12,8 @@ public class LameDuSacrifice extends Action
     @Override
     public void act(Character target, Character origin)
     {
-
+        target.health((int)(Math.random() * 10) +2);
+        origin.dammage((int)(Math.random() * 18)+2);
+        origin.nextAction();
     }
 }

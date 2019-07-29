@@ -110,6 +110,7 @@ public class Button extends Component
             gg.setColor(overColor);
         gg.fillRect(this.posX, this.posY, this.width,this.getHeight());
         gg.setColor(Color.RED);
+        gg.setFont(new Font("Dialog", Font.BOLD, 20));
         gg.drawString(this.text, this.posX + 10, this.posY + this.height / 2 + 5);
     }
 

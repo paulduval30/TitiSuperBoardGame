@@ -12,9 +12,9 @@ public class AttaqueArmeNiveauUn extends Action
     @Override
     public void act(Character target, Character origin)
     {
+
+        target.dammage((int)(Math.random() * 9) +2);
         origin.nextAction();
-        target.dammage((int)(Math.random() * 10) +1);
-        System.out.println(this.name + " "+((int)(Math.random() * 10) +1));
 
     }
 }

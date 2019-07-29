@@ -6,14 +6,16 @@ import java.util.ArrayList;
 
 public class Team
 {
+    public String name;
     public ArrayList<Character> characters;
     public ArrayList<Integer> nbAction;
 
-    public Team()
+    public Team(String nom)
     {
         this.characters = new ArrayList<>();
         this.nbAction = new ArrayList<>();
         this.initNbAction();
+        this.name = nom;
     }
 
     public void addCharacter(Character c)
@@ -63,5 +65,15 @@ public class Team
     public void setNbAction(ArrayList<Integer> nbAction)
     {
         this.nbAction = nbAction;
+    }
+
+    public void setNom(String unNom)
+    {
+
+    }
+
+    public String getName()
+    {
+        return this.name;
     }
 }

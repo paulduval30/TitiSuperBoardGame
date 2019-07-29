@@ -254,6 +254,12 @@ public class Character
     {
         this.life -= dammage;
     }
+
+    public void health(int health)
+    {
+        this.life += health;
+    }
+
     public void nextAction()
     {
         this.nbAction --;

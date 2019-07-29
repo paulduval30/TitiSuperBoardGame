@@ -47,6 +47,8 @@ public class CharacterDescription extends Component
         gg.drawString("PM : " +  this.character.getCurrentPM() + "",this.posX + 20, this.posY + 50);
         gg.drawString("Action : " + this.character.getNbAction() + "",this.posX + 20, this.posY + 80);
         gg.drawString("Life : " + this.character.getLife(),this.posX + 20, this.posY + 110);
+        gg.drawString("Team : " + this.character.getTeam().getName(),this.posX + 20, this.posY + 140);
+
 
     }
 
