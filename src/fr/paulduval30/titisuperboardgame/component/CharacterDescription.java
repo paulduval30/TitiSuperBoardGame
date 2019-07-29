@@ -42,6 +42,7 @@ public class CharacterDescription extends Component
         Font font = new Font("arial",Font.BOLD, 24);
         gg.setFont(font);
         gg.fillRoundRect(posX, posY, width, height, 5, 5);
+        //gg.fillRoundRect(0,engine.getHeight() *0.8f,200,(int)(engine.getHeight()*0.8f),5,5);
         gg.setColor(Color.BLACK);
         gg.drawString(this.character.getName(),this.posX + 20, this.posY + 20);
         gg.drawString("PM : " +  this.character.getCurrentPM() + "",this.posX + 20, this.posY + 50);
@@ -51,6 +52,8 @@ public class CharacterDescription extends Component
 
 
     }
+
+
 
     @Override
     public void update(GameEngine engine)
