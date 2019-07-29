@@ -14,4 +14,9 @@ public abstract class Action
     }
 
     public abstract void act(Character target, Character origin);
+
+    public int getPo()
+    {
+        return po;
+    }
 }

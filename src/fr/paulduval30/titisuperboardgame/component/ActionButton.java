@@ -27,7 +27,7 @@ public class ActionButton extends Button
         {
             if(engine.getInput().isMousePressed(MouseEvent.BUTTON1) && this.isOver)
             {
-                this.character.getActions().get(this.text).act(this.game.getPlayers().get(1), this.game.getCurrentPlayer());
+                this.game.setState("action", this.character.getActions().get(this.text));
             }
         }
     }

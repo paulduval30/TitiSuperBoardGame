@@ -4,6 +4,7 @@ import fr.paulduval30.titisuperboardgame.engine.Component;
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
 import fr.paulduval30.titisuperboardgame.engine.GameGraphics;
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.Action;
 import fr.paulduval30.titisuperboardgame.game.Game;
 
 import javax.imageio.ImageIO;
@@ -72,16 +73,36 @@ public class GameGrid extends Component
             }
         }
 
-        gg.setColor(new Color(66, 244, 66,75));
-        int[][] matricePoids = game.getCurrentPlayer().getMatricePoids();
-        for(int i = 0; i < matricePoids.length; i++)
+        if(this.game.getAction() == null)
         {
-            for(int j = 0; j < matricePoids[0].length; j++)
+            gg.setColor(new Color(66, 244, 66,75));
+
+            int[][] matricePoids = game.getCurrentPlayer().getMatricePoids();
+            for (int i = 0; i < matricePoids.length; i++)
             {
-                if(matricePoids[i][j] <= game.getCurrentPlayer().getCurrentPM())
+                for (int j = 0; j < matricePoids[0].length; j++)
                 {
-                    gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
-                    gg.drawString(matricePoids[i][j] + "",21 + j * SIZE,21 + i * SIZE);
+                    if (matricePoids[i][j] <= game.getCurrentPlayer().getCurrentPM())
+                    {
+                        gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
+                        gg.drawString(matricePoids[i][j] + "", 21 + j * SIZE, 21 + i * SIZE);
+                    }
+                }
+            }
+        }
+        else
+        {
+            gg.setColor(new Color(150, 194, 255, 75));
+            Action action = this.game.getAction();
+            for(int i = 0; i < this.game.getMap().getNbLine(); i++)
+            {
+                for(int j = 0; j < this.game.getMap().getNbCol(); j++)
+                {
+                    if(Math.abs(i - this.game.getCurrentPlayer().getLine()) + Math.abs(j - this.game.getCurrentPlayer().getCol()) < action.getPo())
+                    {
+                        gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
+
+                    }
                 }
             }
         }
@@ -108,7 +129,15 @@ public class GameGrid extends Component
             System.out.println(line + " " + col + " " + (line >= 0 && line < game.getMap().getNbLine() && col <= 0 && col < game.getMap().getNbCol()));
             if(line >= 0 && line < game.getMap().getNbLine() && col >= 0 && col < game.getMap().getNbCol())
             {
-                game.moove(game.getCurrentPlayer(),line, col);
+                if(game.getAction() == null)
+                    game.moove(game.getCurrentPlayer(),line, col);
+                else
+                {
+                    Character target = game.getCharacter(line, col);
+                    Character source = game.getCurrentPlayer();
+                    game.getAction().act(target, source);
+                    game.setState("Mooving", null);
+                }
             }
         }
     }

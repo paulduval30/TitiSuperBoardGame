@@ -73,6 +73,7 @@ public class Character
             currentPM -= matricePoids[line][col];
             this.resetMatricePoids();
             this.calculerMatricePoids(0, this.line, this.col);
+            this.nextAction();
             return  true;
 
         }
@@ -116,6 +117,13 @@ public class Character
     public void endTurn()
     {
         this.isCurrent = false;
+        System.out.println("END TURN" + this.name + this.nbAction);
+
+        if(this.nbAction <= 0)
+        {
+            this.game.nextPlayer();
+        }
+
     }
 
     public HashMap<String, Action> getActions()
@@ -258,5 +266,11 @@ public class Character
         this.calculerMatricePoids(0, this.line, this.col);
         this.currentPM = this.pm;
         this.isCurrent = true;
+        if(this.nbAction <= 0)
+        {
+
+        }
+
+
     }
 }

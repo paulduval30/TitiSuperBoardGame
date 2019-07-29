@@ -1,6 +1,7 @@
 package fr.paulduval30.titisuperboardgame.game;
 
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.Action;
 import fr.paulduval30.titisuperboardgame.game.board.Map;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Game
     private Map map;
     private int current;
     private boolean end;
+    private Action action;
 
     public Game(int nbPlayer, Map map)
     {
@@ -111,5 +113,15 @@ public class Game
         boolean moove = c.deplacer(line, col);
         this.getMap().getGrid()[c.getLine()][c.getCol()].setWalkable(false);
         return moove;
+    }
+
+    public void setState(String state, Action action)
+    {
+        this.action = action;
+    }
+
+    public Action getAction()
+    {
+        return action;
     }
 }
