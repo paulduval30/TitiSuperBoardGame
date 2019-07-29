@@ -119,11 +119,6 @@ public class Character
         this.isCurrent = false;
         System.out.println("END TURN" + this.name + this.nbAction);
 
-        if(this.nbAction <= 0)
-        {
-            this.game.nextPlayer();
-        }
-
     }
 
     public HashMap<String, Action> getActions()
@@ -268,7 +263,7 @@ public class Character
         this.isCurrent = true;
         if(this.nbAction <= 0)
         {
-
+            this.game.nextPlayer();
         }
 
 
