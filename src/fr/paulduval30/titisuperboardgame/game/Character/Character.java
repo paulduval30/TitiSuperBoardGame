@@ -1,8 +1,11 @@
 package fr.paulduval30.titisuperboardgame.game.Character;
 
+import fr.paulduval30.titisuperboardgame.dialog.ActionDialogBox;
 import fr.paulduval30.titisuperboardgame.game.Character.actions.Action;
 import fr.paulduval30.titisuperboardgame.game.Game;
+import fr.paulduval30.titisuperboardgame.game.Team;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,28 +22,40 @@ public class Character
     private boolean isCurrent;
     private int[][] matricePoids;
     private Game game;
+    private int life;
+    private Team team;
 
-    public Character(String name, int line, int col, int pm, int nbAction, Game game)
+    public Character(String name, int line, int col, int pm, int nbAction, int life, Game game, Team team)
     {
+        this.team = team;
         this.name = name;
         this.line = line;
         this.col = col;
         this.pm = pm;
+        this.currentPM = pm;
+        this.life = life;
         this.nbAction = nbAction;
         this.powers = new HashMap<>();
         this.isCurrent = false;
         this.game = game;
         this.game.getMap().getGrid()[line][col].setWalkable(false);
         this.matricePoids = new int[game.getMap().getNbLine()][game.getMap().getNbCol()];
+
+        this.calculerMatricePoids(0, this.line, this.col);
+    }
+
+    public void resetMatricePoids()
+    {
+        System.out.println(this.name + " " + this.nbAction);
+
         for(int i = 0; i < matricePoids.length; i++)
         {
-            for(int j = 0; j < matricePoids.length; j++)
+            for(int j = 0; j < matricePoids[i].length; j++)
             {
                 this.matricePoids[i][j] = 10000;
             }
         }
 
-        this.calculerMatricePoids(0, this.line, this.col);
     }
 
     /**
@@ -56,24 +71,12 @@ public class Character
             this.line = line;
             this.col = col;
             currentPM -= matricePoids[line][col];
-            for(int i = 0; i < matricePoids.length; i++)
-            {
-                for(int j = 0; j < matricePoids.length; j++)
-                {
-                    this.matricePoids[i][j] = 10000;
-                }
-            }
+            this.resetMatricePoids();
             this.calculerMatricePoids(0, this.line, this.col);
             return  true;
 
         }
-        for(int i = 0; i < matricePoids.length; i++)
-        {
-            for(int j = 0; j < matricePoids.length; j++)
-            {
-                this.matricePoids[i][j] = 10000;
-            }
-        }
+        this.resetMatricePoids();
         this.calculerMatricePoids(0, this.line, this.col);
 
         return false;
@@ -93,16 +96,18 @@ public class Character
      */
     public void startTurn()
     {
-        for(int i = 0; i < matricePoids.length; i++)
-        {
-            for(int j = 0; j < matricePoids.length; j++)
-            {
-                this.matricePoids[i][j] = 10000;
-            }
-        }
+        System.out.println(this.name);
+        this.resetMatricePoids();
         this.calculerMatricePoids(0, this.line, this.col);
         this.currentPM = this.pm;
         this.isCurrent = true;
+        int choice = ActionDialogBox.displayGUI(game);
+        while (choice == JOptionPane.CLOSED_OPTION)
+            choice = ActionDialogBox.displayGUI(game);
+        Character current = game.getCurrentPlayer();
+        Team t = current.getTeam();
+        current.setNbAction(t.getNbAction().get(choice));
+        t.takeAction(current.getNbAction());
     }
 
     /**
@@ -118,6 +123,10 @@ public class Character
         this.powers.put(name, a);
     }
 
+    public HashMap<String, Action> getPowers()
+    {
+        return powers;
+    }
 
     public String getName()
     {
@@ -169,6 +178,11 @@ public class Character
         this.nbAction = nbAction;
     }
 
+    public Team getTeam()
+    {
+        return this.team;
+    }
+
     public boolean isCurrent()
     {
         return this.isCurrent;
@@ -182,7 +196,7 @@ public class Character
      */
     private void calculerMatricePoids(int id, int ligneSource, int colSource)
     {
-        matricePoids[ligneSource][colSource] = id;
+        this.matricePoids[ligneSource][colSource] = id;
         id += this.game.getMap().getCost(ligneSource, colSource);
 
         if(id <= this.pm)
@@ -209,13 +223,35 @@ public class Character
         return this.matricePoids;
     }
 
-    public int attack(int dammage, Character target)
+    public void act(String action)
     {
-        return dammage - target.defend();
+        //Dammage:source,target,value:Soin:source,target,value:position:source,target
     }
 
+    public void take(String action)
+    {
+
+    }
     private int defend()
     {
         return 0;
+    }
+
+    public int getLife()
+    {
+        return life;
+    }
+
+    public void dammage(int dammage)
+    {
+        this.life -= 20;
+    }
+    public void nextAction()
+    {
+        this.nbAction --;
+        this.resetMatricePoids();
+        this.calculerMatricePoids(0, this.line, this.col);
+        this.currentPM = this.pm;
+        this.isCurrent = true;
     }
 }

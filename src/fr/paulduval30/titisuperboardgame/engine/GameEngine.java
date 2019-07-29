@@ -98,15 +98,15 @@ public class GameEngine implements Runnable
 			try
 			{
 
-				start = System.currentTimeMillis();
+//				start = System.currentTimeMillis();
 				this.screen.update(this);
 				this.canvas.update();
 				this.canvas.repaint();
-
-				delta =  System.currentTimeMillis() - start  == 0 ? 1 :
-						1 - (double)(System.currentTimeMillis() - start) / (double)MS_PER_SECOND;
-				fps = MS_PER_SECOND - (System.currentTimeMillis() - start);
-				Thread.sleep(fps);
+//
+//				delta =  System.currentTimeMillis() - start  == 0 ? 1 :
+//						1 - (double)(System.currentTimeMillis() - start) / (double)MS_PER_SECOND;
+//				fps = MS_PER_SECOND - (System.currentTimeMillis() - start);
+				Thread.sleep(1000/60);
 			}
 			catch (Exception ex)
 			{

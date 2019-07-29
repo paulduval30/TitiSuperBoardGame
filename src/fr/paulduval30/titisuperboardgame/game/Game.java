@@ -9,6 +9,7 @@ public class Game
 {
     private int nbPlayer;
     private ArrayList<Character> players;
+    private ArrayList<Team> teams;
     private Map map;
     private int current;
     private boolean end;
@@ -18,6 +19,7 @@ public class Game
         this.current = 0;
         this.nbPlayer = nbPlayer;
         this.players = new ArrayList<>();
+        this.teams = new ArrayList<>();
         this.map = map;
         this.end = false;
     }
@@ -27,6 +29,7 @@ public class Game
         this.players.get(0).startTurn();
     }
 
+
     public void nextPlayer()
     {
         this.getCurrentPlayer().endTurn();
@@ -34,6 +37,16 @@ public class Game
         if(this.current > this.players.size() - 1)
             this.current = 0;
         this.getCurrentPlayer().startTurn();
+    }
+
+    public Character getCharacter(int line, int col)
+    {
+        for(Character c : players)
+        {
+            if(c.getLine() == line && c.getCol() == col)
+                return c;
+        }
+        return  null;
     }
 
     public Character getCurrentPlayer()
@@ -46,8 +59,19 @@ public class Game
         return this.current;
     }
 
-    public void addPlayer(Character p)
+    public void addPlayer(Character p, Team team)
     {
+        for(Team t : teams)
+        {
+            if(t.equals(team))
+            {
+                team.addCharacter(p);
+                this.players.add(p);
+                return;
+            }
+        }
+        this.teams.add(team);
+        team.addCharacter(p);
         this.players.add(p);
     }
 

@@ -14,16 +14,31 @@ public class Map
         this.grid = new Cell[nbLine][nbCol];
         for(int i = 0; i < nbLine; i++)
         {
-            for(int j = 0; j < nbLine; j++)
+            for(int j = 0; j < nbCol; j++)
             {
                 this.grid[i][j] = new Cell(i, j, "empty", true, 1);
             }
         }
     }
 
-    public Map(Cell[][] grid)
+    public Map(String[][] map)
     {
-        this.grid = grid;
+        this.grid = new Cell[map.length][map[0].length];
+        for(int i = 0; i < map.length; i++)
+        {
+            for(int j = 0; j < map[0].length; j++)
+            {
+                if(map[i][j].equals("f"))
+                    this.grid[i][j] = (new Cell(i,j,"forest", true,3));
+                if(map[i][j].equals("w"))
+                    this.grid[i][j] = (new Cell(i,j,"water", true,1));
+                if(map[i][j].equals("m"))
+                    this.grid[i][j] = (new Cell(i,j,"mountain", false,1));
+                if(map[i][j].equals("e"))
+                    this.grid[i][j] = (new Cell(i,j,"empty", true,1));
+            }
+        }
+
         this.nbLine = grid.length;
         this.nbCol = grid[0].length;
     }

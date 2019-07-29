@@ -5,7 +5,13 @@ import fr.paulduval30.titisuperboardgame.game.Character.Character;
 public abstract class Action
 {
     protected boolean ldv;
-    protected boolean po;
+    protected int po;
+
+    public Action(int po, boolean ldv)
+    {
+        this.po = po;
+        this.ldv = ldv;
+    }
 
     public abstract void act(Character target, Character origin);
 }

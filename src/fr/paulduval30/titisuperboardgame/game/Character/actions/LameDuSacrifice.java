@@ -2,13 +2,13 @@ package fr.paulduval30.titisuperboardgame.game.Character.actions;
 
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
 
-public class AttaqueArmeNiveauUn extends Action
+public class LameDuSacrifice extends Action
 {
-
-    public AttaqueArmeNiveauUn(int po, boolean ldv)
+    public LameDuSacrifice(int po, boolean ldv)
     {
-        super(po,ldv);
+        super(po, ldv);
     }
+
     @Override
     public void act(Character target, Character origin)
     {

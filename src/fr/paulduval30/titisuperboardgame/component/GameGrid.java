@@ -6,17 +6,34 @@ import fr.paulduval30.titisuperboardgame.engine.GameGraphics;
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
 import fr.paulduval30.titisuperboardgame.game.Game;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class GameGrid extends Component
 {
     private static int SIZE = 0;
     private Game game;
+    private Image forest;
+    private Image mountain;
+    private Image water;
 
     public GameGrid(Game game)
     {
         this.game = game;
+        try
+        {
+            this.forest = ImageIO.read(new File("res/forest.png"));
+            this.water = ImageIO.read(new File("res/water.jpg"));
+            this.mountain = ImageIO.read(new File("res/Mountain.png"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
     @Override
     public void init()
@@ -27,16 +44,31 @@ public class GameGrid extends Component
     @Override
     public void render(GameEngine engine, GameGraphics gg)
     {
-        SIZE = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
-        gg.setColor(Color.GRAY);
-        gg.fillRect(0,0, engine.getWidth(), engine.getHeight() );
+        int s1 = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
+        int s2 = ((engine.getWidth() - (int)(engine.getWidth() * 0.4)) / game.getMap().getNbCol());
+        SIZE = s1 < s2 ? s1 : s2;
         gg.setColor(Color.BLACK);
+        gg.fillRect(0,0, engine.getWidth(), engine.getHeight() );
+        gg.setColor(new Color(189, 137, 55));
 
         for(int i = 0; i < this.game.getMap().getNbCol(); i++)
         {
             for(int j = 0; j < this.game.getMap().getNbLine(); j ++)
             {
-                gg.drawRect(20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                gg.fillRect(20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                if(this.game.getMap().getGrid()[j][i].getType().equals("forest"))
+                {
+                    gg.drawImage(forest,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                }
+                if(this.game.getMap().getGrid()[j][i].getType().equals("water"))
+                {
+                    gg.drawImage(water,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                }
+                if(this.game.getMap().getGrid()[j][i].getType().equals("mountain"))
+                {
+                    gg.drawImage(mountain,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                }
+
             }
         }
 
@@ -44,11 +76,12 @@ public class GameGrid extends Component
         int[][] matricePoids = game.getCurrentPlayer().getMatricePoids();
         for(int i = 0; i < matricePoids.length; i++)
         {
-            for(int j = 0; j < matricePoids.length; j++)
+            for(int j = 0; j < matricePoids[0].length; j++)
             {
                 if(matricePoids[i][j] <= game.getCurrentPlayer().getCurrentPM())
                 {
                     gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
+                    gg.drawString(matricePoids[i][j] + "",21 + j * SIZE,21 + i * SIZE);
                 }
             }
         }
@@ -65,15 +98,12 @@ public class GameGrid extends Component
     @Override
     public void update(GameEngine engine)
     {
+        if(SIZE == 0)
+            return;
         int line = (engine.getInput().getMouseY() - 20) / SIZE;
         int col = (engine.getInput().getMouseX() - 20) / SIZE;
-        if(line >= 0 && line < game.getMap().getNbLine() && col >= 0 && col < game.getMap().getNbCol())
-        {
-            System.out.println(game.getMap().getGrid()[line][col].isWalkable());
-        }
         if(engine.getInput().isMousePressed(MouseEvent.BUTTON1))
         {
-
 
             System.out.println(line + " " + col + " " + (line >= 0 && line < game.getMap().getNbLine() && col <= 0 && col < game.getMap().getNbCol()));
             if(line >= 0 && line < game.getMap().getNbLine() && col >= 0 && col < game.getMap().getNbCol())

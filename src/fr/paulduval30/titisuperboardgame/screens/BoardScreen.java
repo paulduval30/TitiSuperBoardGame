@@ -1,5 +1,6 @@
 package fr.paulduval30.titisuperboardgame.screens;
 
+import fr.paulduval30.titisuperboardgame.component.CharacterDescription;
 import fr.paulduval30.titisuperboardgame.component.CharacterMenu;
 import fr.paulduval30.titisuperboardgame.component.GameGrid;
 import fr.paulduval30.titisuperboardgame.engine.Component;
@@ -23,6 +24,7 @@ public class BoardScreen extends Screen
         this.components = new ArrayList<>();
         this.components.add(new GameGrid(game));
         this.components.add(new CharacterMenu(game));
+        this.components.add(new CharacterDescription(game.getCurrentPlayer(), game));
     }
     @Override
     public void init()

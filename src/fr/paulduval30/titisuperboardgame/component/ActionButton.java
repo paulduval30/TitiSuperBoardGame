@@ -1,23 +1,33 @@
 package fr.paulduval30.titisuperboardgame.component;
 
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
+import fr.paulduval30.titisuperboardgame.game.Game;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class ActionButton extends Button
 {
-    public ActionButton(String text, int posX, int posY, int width, int height, Color naturalColor, Color overColor)
+    private final Character character;
+    private final Game game;
+
+    public ActionButton(String text, int posX, int posY, int width, int height, Color naturalColor, Color overColor, Game game, Character character)
     {
         super(text, posX, posY, width, height, naturalColor, overColor);
+        this.game = game;
+        this.character = character;
     }
 
     @Override
     public void update(GameEngine engine)
     {
         super.update(engine);
-        this.posY = (int)(engine.getHeight() * 0.8f) + 50;
-        this.posX = 170;
-        this.width = 100;
-        this.height = 50;
+        if(this.isOver)
+        {
+            if(engine.getInput().isMousePressed(MouseEvent.BUTTON1) && this.isOver)
+            {
+
+            }
+        }
     }
 }
