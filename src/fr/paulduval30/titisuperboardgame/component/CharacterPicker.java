@@ -53,11 +53,18 @@ public class CharacterPicker extends Component
         gg.setColor(Color.DARK_GRAY);
         int line = 0;
         int col = 0;
-
-        for(int i = 1; i <= characters.keySet().toArray().length; i++)
+        if(characters.get((characters.keySet().toArray()[0]))[10].equals("true"))
         {
-            gg.fillRoundRect(this.posX + (col )* size,this.posY + line * size, size,size,10,10);
+            gg.setColor(Color.BLACK);
+        }
+        else
+        {
+            gg.setColor(Color.DARK_GRAY);
+        }
+        gg.fillRoundRect(this.posX + (col )* size,this.posY + line * size, size,size,10,10);
 
+        for(int i = 1; i < characters.keySet().toArray().length; i++)
+        {
             if(i%10 == 0)
             {
                 line ++;
@@ -65,6 +72,22 @@ public class CharacterPicker extends Component
             }
             else
                 col ++;
+            System.out.println(line + " " + col + " " + i);
+
+            if(i >= characters.size())
+            {
+                continue;
+            }
+            if(characters.get((characters.keySet().toArray()[i]))[10].equals("true"))
+            {
+                gg.setColor(Color.BLACK);
+            }
+            else
+            {
+                gg.setColor(Color.DARK_GRAY);
+            }
+            gg.fillRoundRect(this.posX + (col )* size,this.posY + line * size, size,size,10,10);
+
         }
 
         gg.setColor(Color.lightGray);
@@ -119,8 +142,20 @@ public class CharacterPicker extends Component
 
             int ligne = mouseY / size;
             int col = mouseX / size;
-            this.choice = (String)characters.keySet().toArray()[ligne * 9 + col];
-            if(engine.getInput().isMousePressed(MouseEvent.BUTTON1))
+            this.choice = (String)characters.keySet().toArray()[ligne * 10 + col];
+            String[] data = characters.get(choice);
+            String name = data[0];
+            String life = data[1];
+            String armure = data[2];
+            String arme = data[3];
+            String coupsournois = data[4];
+            String pm = data[5];
+            String po = data[6];
+            String att1 = data[7];
+            String att2 = data[8];
+            String att3 = data[9];
+            String state = data[10];
+            if(engine.getInput().isMousePressed(MouseEvent.BUTTON1) && state.equals("false"))
             {
                 ArrayList<Team> teams = game.getTeams();
                 Team picking = teams.get(0);
@@ -132,17 +167,7 @@ public class CharacterPicker extends Component
                     }
                 }
 
-                String[] data = characters.get(choice);
-                String name = data[0];
-                String life = data[1];
-                String armure = data[2];
-                String jsaispas = data[3];
-                String coupsournois = data[4];
-                String pm = data[5];
-                String po = data[6];
-                String att1 = data[7];
-                String att2 = data[8];
-                String att3 = data[9];
+
                 int line = 0;
                 int colonne = 0;
                 if(game.getCharacter(0,0) != null)
@@ -164,6 +189,7 @@ public class CharacterPicker extends Component
                 picking.addCharacter(c);
                 game.addPlayer(c, picking);
                 nbPick ++;
+                characters.get(choice)[10] = "true";
                 if(nbPick == 4)
                 {
                     game.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" , true));

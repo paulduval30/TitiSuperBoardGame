@@ -14,7 +14,5 @@ public class AttaqueArmeNiveauDeux extends Action
     {
         target.dammage((int)(Math.random() * 10) +2);
         origin.nextAction();
-
-
     }
 }
