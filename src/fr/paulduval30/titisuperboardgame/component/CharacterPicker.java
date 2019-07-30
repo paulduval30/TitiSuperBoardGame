@@ -71,16 +71,18 @@ public class CharacterPicker extends Component
             String att3 = data[9];
 
             gg.setColor(Color.BLACK);
-            gg.drawString(name,this.posX, posY2 + 10);
-            gg.drawString("life : " + life,this.posX + this.width / 5, posY2 + 10);
-            gg.drawString("??? : " + jsaispas,this.posX + this.width / 5 * 2, posY2 + 10);
-            gg.drawString("Armure : " + armure,this.posX + this.width / 5 * 3, posY2 + 10);
-            gg.drawString("Coup sournois" + coupsournois,this.posX + this.width / 5 * 4, posY2 + 10);
-            gg.drawString("PM : " + pm,this.posX + 10, posY2 + this.height / 4);
-            gg.drawString("PO : " + po,this.posX + this.width / 5, posY2 + this.height / 4);
-            gg.drawString("Attaque 1 : " + att1,this.posX + this.width / 5 * 2, posY2 + this.height / 4);
-            gg.drawString("Attaque 2 " + att2,this.posX + this.width / 5 * 3, posY2 + this.height / 4);
-            gg.drawString("Attaque 3 " + att3,this.posX + this.width / 5 * 4, posY2 + this.height / 4);
+            Font font = new Font("arial",Font.BOLD, 20);
+            gg.setFont(font);
+            gg.drawString(name,this.posX, posY2 + 30);
+            gg.drawString("life : " + life,this.posX + this.width / 5, posY2 + 30);
+            gg.drawString("??? : " + jsaispas,this.posX + this.width / 5 * 2, posY2 + 20);
+            gg.drawString("Armure : " + armure,this.posX + this.width / 5 * 3, posY2 + 20);
+            gg.drawString("Coup sournois : " + coupsournois,this.posX, posY2 + this.height / 20 * 2 + 20);
+            gg.drawString("PM : " + pm,this.posX  + this.width / 5, posY2 + this.height / 20 * 2 + 20);
+            gg.drawString("PO : " + po,this.posX + this.width / 5 * 2, posY2 + this.height / 20 * 2 + 20);
+            gg.drawString("Attaque 1 : " + att1,this.posX, posY2 + (this.height / 20) * 3 + 20);
+            gg.drawString("Attaque 2 " + att2,this.posX, posY2 + (this.height / 20) * 4 + 20);
+            gg.drawString("Attaque 3 " + att3,this.posX, posY2 + (this.height / 20) * 5 + 20);
         }
     }
 

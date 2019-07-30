@@ -66,7 +66,7 @@ public class Main
             g.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
             g.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
             g.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
-            engine.setScreen(new BoardScreen(g));
+            engine.setScreen(new CharacterPickerScreen(g));
             engine.start();
             g.initGame();
 
