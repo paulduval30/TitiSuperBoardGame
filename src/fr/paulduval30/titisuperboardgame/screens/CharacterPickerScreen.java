@@ -40,7 +40,7 @@ public class CharacterPickerScreen extends Screen
         {
             e.printStackTrace();
         }
-        this.picker = new CharacterPicker(characters);
+        this.picker = new CharacterPicker(characters, game);
     }
     @Override
     public void init()

@@ -5,6 +5,7 @@ import fr.paulduval30.titisuperboardgame.game.Character.actions.Action;
 import fr.paulduval30.titisuperboardgame.game.board.Map;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 
 public class Game
 {
@@ -123,5 +124,20 @@ public class Game
     public Action getAction()
     {
         return action;
+    }
+
+    public ArrayList<Team> getTeams()
+    {
+        return teams;
+    }
+
+    public void addTeam(Team team)
+    {
+        this.teams.add(team);
+    }
+
+    public ArrayList<Character> getCharacters()
+    {
+        return players;
     }
 }

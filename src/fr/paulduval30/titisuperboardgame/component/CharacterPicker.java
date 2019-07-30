@@ -3,8 +3,18 @@ package fr.paulduval30.titisuperboardgame.component;
 import fr.paulduval30.titisuperboardgame.engine.Component;
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
 import fr.paulduval30.titisuperboardgame.engine.GameGraphics;
+import fr.paulduval30.titisuperboardgame.game.Character.Character;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauDeux;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauTrois;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauUn;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.LameDuSacrifice;
+import fr.paulduval30.titisuperboardgame.game.Game;
+import fr.paulduval30.titisuperboardgame.game.Team;
+import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CharacterPicker extends Component
@@ -16,11 +26,15 @@ public class CharacterPicker extends Component
     private int height;
     private int size;
     private String choice;
+    private Game game;
+    private int nbPick;
 
-    public CharacterPicker(HashMap<String, String[]> characters)
+    public CharacterPicker(HashMap<String, String[]> characters, Game g)
     {
         this.characters = characters;
         this.choice = "";
+        this.game = g;
+        this.nbPick = 0;
     }
 
     @Override
@@ -105,8 +119,72 @@ public class CharacterPicker extends Component
 
             int ligne = mouseY / size;
             int col = mouseX / size;
-
             this.choice = (String)characters.keySet().toArray()[ligne * 9 + col];
+            if(engine.getInput().isMousePressed(MouseEvent.BUTTON1))
+            {
+                ArrayList<Team> teams = game.getTeams();
+                Team picking = teams.get(0);
+                for(Team t : teams)
+                {
+                    if(t.getCharacters().size() < picking.getCharacters().size())
+                    {
+                        picking = t;
+                    }
+                }
+
+                String[] data = characters.get(choice);
+                String name = data[0];
+                String life = data[1];
+                String armure = data[2];
+                String jsaispas = data[3];
+                String coupsournois = data[4];
+                String pm = data[5];
+                String po = data[6];
+                String att1 = data[7];
+                String att2 = data[8];
+                String att3 = data[9];
+                int line = 0;
+                int colonne = 0;
+                if(game.getCharacter(0,0) != null)
+                {
+                    line = game.getMap().getNbLine() - 1;
+                    colonne = game.getMap().getNbCol() - 1;
+                }
+                if(game.getCharacter(game.getMap().getNbLine() - 1, game.getMap().getNbCol() - 1) != null)
+                {
+                    line = game.getMap().getNbLine() - 1;
+                    colonne = 0;
+                }
+                if(game.getCharacter(game.getMap().getNbLine() - 1, 0) != null)
+                {
+                    line = 0;
+                    colonne = game.getMap().getNbCol() - 1;
+                }
+                Character c = new Character(name, line, colonne, new Integer(pm),2, new Integer(life), game, picking);
+                picking.addCharacter(c);
+                game.addPlayer(c, picking);
+                nbPick ++;
+                if(nbPick == 4)
+                {
+                    game.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" , true));
+                    game.getPlayers().get(0).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+                    game.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", false));
+                    game.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", true));
+                    game.getPlayers().get(1).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
+                    game.getPlayers().get(1).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+                    game.getPlayers().get(1).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
+                    game.getPlayers().get(1).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
+                    game.getPlayers().get(2).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
+                    game.getPlayers().get(2).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+                    game.getPlayers().get(2).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
+                    game.getPlayers().get(2).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
+                    game.getPlayers().get(3).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
+                    game.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+                    game.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
+                    game.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
+                    engine.setScreen(new BoardScreen(game));
+                }
+            }
         }
     }
 }

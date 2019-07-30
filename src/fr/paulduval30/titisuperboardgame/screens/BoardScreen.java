@@ -25,6 +25,7 @@ public class BoardScreen extends Screen
         this.components.add(new GameGrid(game));
         this.components.add(new CharacterMenu(game));
         this.components.add(new CharacterDescription(game.getCurrentPlayer(), game));
+        game.initGame();
     }
     @Override
     public void init()

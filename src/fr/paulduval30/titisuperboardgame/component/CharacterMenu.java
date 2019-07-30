@@ -22,7 +22,7 @@ public class CharacterMenu extends Component
     public CharacterMenu(Game game)
     {
         this.game = game;
-
+        this.actions = new ArrayList<>();
     }
 
 
