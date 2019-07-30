@@ -14,6 +14,8 @@ import fr.paulduval30.titisuperboardgame.game.Game;
 import fr.paulduval30.titisuperboardgame.game.Team;
 import fr.paulduval30.titisuperboardgame.game.board.Map;
 import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
+import fr.paulduval30.titisuperboardgame.screens.CharacterPickerScreen;
+
 public class Main
 {
     public static void main(String[] argv)
