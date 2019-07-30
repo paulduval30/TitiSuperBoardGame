@@ -19,8 +19,10 @@ public class GameGrid extends Component
     private static int SIZE = 0;
     private Game game;
     private Image forest;
+    private Image terre;
     private Image mountain;
     private Image water;
+    private Image sable;
 
     public GameGrid(Game game)
     {
@@ -30,6 +32,8 @@ public class GameGrid extends Component
             this.forest = ImageIO.read(new File("res/forest.png"));
             this.water = ImageIO.read(new File("res/water.jpg"));
             this.mountain = ImageIO.read(new File("res/Mountain.png"));
+            this.terre = ImageIO.read(new File("res/terre.jpg"));
+            this.sable =  ImageIO.read(new File("res/sable.jpg"));
         }
         catch (IOException e)
         {
@@ -45,21 +49,29 @@ public class GameGrid extends Component
     @Override
     public void render(GameEngine engine, GameGraphics gg)
     {
-        int s1 = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
-        int s2 = ((engine.getWidth() - (int)(engine.getWidth() * 0.4)) / game.getMap().getNbCol());
-        SIZE = s1 < s2 ? s1 : s2;
+
         gg.setColor(Color.BLACK);
         gg.fillRect(0,0, engine.getWidth(), engine.getHeight() );
         gg.setColor(new Color(189, 137, 55));
 
+
         for(int i = 0; i < this.game.getMap().getNbCol(); i++)
         {
+
             for(int j = 0; j < this.game.getMap().getNbLine(); j ++)
             {
+
                 gg.fillRect(20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
                 if(this.game.getMap().getGrid()[j][i].getType().equals("forest"))
                 {
                     gg.drawImage(forest,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                }if(this.game.getMap().getGrid()[j][i].getType().equals("sand"))
+                {
+                    gg.drawImage(sable,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                }
+                if(this.game.getMap().getGrid()[j][i].getType().equals("empty"))
+                {
+                    gg.drawImage(terre,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
                 }
                 if(this.game.getMap().getGrid()[j][i].getType().equals("water"))
                 {
@@ -69,13 +81,12 @@ public class GameGrid extends Component
                 {
                     gg.drawImage(mountain,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
                 }
-
             }
         }
 
         if(this.game.getAction() == null)
         {
-            gg.setColor(new Color(66, 244, 66,75));
+            gg.setColor(new Color(66, 244, 66,80));
 
             int[][] matricePoids = game.getCurrentPlayer().getMatricePoids();
             for (int i = 0; i < matricePoids.length; i++)
@@ -92,7 +103,7 @@ public class GameGrid extends Component
         }
         else
         {
-            gg.setColor(new Color(150, 194, 255, 75));
+            gg.setColor(new Color(150, 194, 255, 80));
             Action action = this.game.getAction();
             for(int i = 0; i < this.game.getMap().getNbLine(); i++)
             {
@@ -119,6 +130,9 @@ public class GameGrid extends Component
     @Override
     public void update(GameEngine engine)
     {
+        int s1 = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
+        int s2 = ((engine.getWidth() - (int)(engine.getWidth() * 0.4)) / game.getMap().getNbCol());
+        SIZE = s1 < s2 ? s1 : s2;
         if(SIZE == 0)
             return;
         int line = (engine.getInput().getMouseY() - 20) / SIZE;

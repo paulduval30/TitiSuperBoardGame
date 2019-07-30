@@ -22,15 +22,24 @@ public class Main
         {
             GameEngine engine = new GameEngine("Titi super board game", 1280, 720);
             String map[][] = new String[][]{
-                    {"e","w","e","e","f","f","m","w","e","m","w","w","w","w","w","w","w","w","w"},
-                    {"f","w","e","f","f","f","e","w","w","w","w","w","w","f","f","e","e","e","w"},
-                    {"f","w","e","f","f","f","e","f","f","f","f","w","w","f","f","e","e","e","w"},
-                    {"f","w","e","f","f","f","e","w","w","w","w","w","w","f","f","e","e","e","w"},
-                    {"f","w","e","f","f","f","e","w","w","w","w","w","w","f","f","e","e","e","w"},
-                    {"f","w","e","f","w","f","e","w","w","f","m","e","w","f","m","w","e","e","w"},
-                    {"e","w","e","w","e","f","w","f","e","w","m","e","f","f","m","w","w","w","w"},
-                    {"f","w","e","w","w","f","e","w","w","w","w","w","w","f","f","e","e","e","w"},
-                    {"e","w","e","w","e","f","w","f","e","w","m","e","w","f","m","w","w","w","w"}
+                    {"f","f","f","f","f","f","e","e","e","e","s","w","w","w","w","w","w","f","f","f","f","e","e","e"},
+                    {"f","f","f","f","f","e","e","e","e","e","s","w","w","w","w","w","w","f","f","f","f","e","e","e"},
+                    {"f","f","f","f","f","e","e","e","e","s","s","w","w","w","w","w","f","f","f","f","f","e","e","e"},
+                    {"f","f","e","e","e","e","e","e","s","s","w","w","w","w","w","w","f","f","f","f","f","e","e","e"},
+                    {"e","e","e","e","e","e","e","s","s","s","w","w","w","w","w","w","f","f","f","e","e","e","e","e"},
+                    {"e","e","e","e","e","e","e","s","w","w","w","w","w","w","f","f","f","f","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","e","e","s","w","w","e","e","w","w","s","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","e","f","f","w","w","e","e","w","w","s","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","e","f","f","w","w","w","w","w","w","s","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","e","f","f","f","w","w","w","w","s","s","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","f","f","f","f","w","w","w","s","s","e","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","f","f","f","f","w","w","w","s","s","e","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","f","f","f","f","w","w","w","s","s","e","e","e","e","e","e","e","e","e","e"},
+                    {"e","e","e","e","e","f","f","f","f","w","w","w","s","s","e","e","f","f","f","e","e","e","e","e"},
+                    {"f","f","e","e","e","f","f","f","w","w","w","w","w","s","s","e","f","f","f","f","f","f","f","f"},
+                    {"f","f","f","e","e","f","f","f","w","w","w","w","w","s","e","f","f","f","f","f","f","f","f","f"},
+                    {"f","f","f","f","e","f","f","f","w","w","w","w","w","f","f","f","f","f","f","f","f","f","f","f"},
+                    {"f","f","f","f","e","f","f","f","w","w","w","w","w","f","f","f","f","f","f","f","f","f","f","f"},
             };
             Game g = new Game(2, new Map(map));
             Team red = new Team("red");
@@ -39,22 +48,22 @@ public class Main
             g.addPlayer(new Character("Drizzt", 0,1,5,0, 180, g, red), red);
             g.addPlayer(new Character("Legolas", 2,2,4,0, 90, g, blue), blue);
             g.addPlayer(new Character("Oziris", 2,3,4,0, 180, g, blue), blue);
-            g.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" ));
-            g.getPlayers().get(0).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2"));
-            g.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
-            g.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
-            g.getPlayers().get(1).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1"));
-            g.getPlayers().get(1).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2"));
-            g.getPlayers().get(1).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
-            g.getPlayers().get(1).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
-            g.getPlayers().get(2).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1"));
-            g.getPlayers().get(2).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2"));
-            g.getPlayers().get(2).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
-            g.getPlayers().get(2).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
-            g.getPlayers().get(3).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1"));
-            g.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2"));
-            g.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3"));
-            g.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice"));
+            g.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" , true));
+            g.getPlayers().get(0).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+            g.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", false));
+            g.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", true));
+            g.getPlayers().get(1).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
+            g.getPlayers().get(1).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+            g.getPlayers().get(1).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
+            g.getPlayers().get(1).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
+            g.getPlayers().get(2).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
+            g.getPlayers().get(2).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+            g.getPlayers().get(2).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
+            g.getPlayers().get(2).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
+            g.getPlayers().get(3).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
+            g.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
+            g.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
+            g.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
             engine.setScreen(new BoardScreen(g));
             engine.start();
             g.initGame();

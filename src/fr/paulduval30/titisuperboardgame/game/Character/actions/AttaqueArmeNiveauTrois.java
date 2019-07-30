@@ -4,9 +4,9 @@ import fr.paulduval30.titisuperboardgame.game.Character.Character;
 
 public class AttaqueArmeNiveauTrois extends Action
 {
-    public AttaqueArmeNiveauTrois(int po, boolean ldv, String name)
+    public AttaqueArmeNiveauTrois(int po, boolean ldv,String name, boolean defendable)
     {
-        super(po, ldv, name);
+        super(po, ldv, name, defendable);
     }
 
     @Override

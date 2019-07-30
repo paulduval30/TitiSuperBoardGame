@@ -42,21 +42,21 @@ public class CharacterMenu extends Component
             actions.get(i).render(engine,gg);
         }
         gg.setColor(Color.white);
-        gg.fillRoundRect(0,engine.getHeight() *0.8f,200,(int)(engine.getHeight()*0.8f),5,5);
+        gg.fillRoundRect(this.posX,this.posY,200,(int)(engine.getHeight()*0.8f),5,5);
 
         gg.setColor(Color.BLACK);
         gg.setFont(null);
-        gg.drawString(this.game.getCurrentPlayer().getName(),this.posX + 20, this.posY +10);
-        gg.drawString("PM : " +  this.game.getCurrentPlayer().getCurrentPM() + "",this.posX + 20, this.posY + 30);
-        gg.drawString("Action : " + this.game.getCurrentPlayer().getNbAction() + "",this.posX + 20, this.posY + 50);
-        gg.drawString("Life : " + this.game.getCurrentPlayer().getLife(),this.posX + 20, this.posY + 70);
+        gg.drawString(this.game.getCurrentPlayer().getName(),this.posX + 30, this.posY + 20);
+        gg.drawString("PM : " +  this.game.getCurrentPlayer().getCurrentPM() + "",this.posX + 30, this.posY + 40);
+        gg.drawString("Action : " + this.game.getCurrentPlayer().getNbAction() + "",this.posX + 30, this.posY + 60);
+        gg.drawString("Life : " + this.game.getCurrentPlayer().getLife(),this.posX + 30, this.posY + 80);
     }
 
     @Override
     public void update(GameEngine engine)
     {
-        this.posX = 0;
-        this.posY = (int)(engine.getHeight() * 0.8f);
+        this.posX = 20;
+        this.posY = (int)(engine.getHeight() * 0.8f + 20);
         this.height =(int)(engine.getHeight() * 0.2f);
         this.width = engine.getWidth();
 

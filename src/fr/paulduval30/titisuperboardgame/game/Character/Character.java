@@ -24,6 +24,7 @@ public class Character
     private Game game;
     private int life;
     private Team team;
+    private int armorLvl;
 
     public Character(String name, int line, int col, int pm, int nbAction, int life, Game game, Team team)
     {
@@ -240,10 +241,6 @@ public class Character
     {
 
     }
-    private int defend()
-    {
-        return 0;
-    }
 
     public int getLife()
     {
@@ -253,6 +250,24 @@ public class Character
     public void dammage(int dammage)
     {
         this.life -= dammage;
+    }
+
+    public int defend()
+    {
+        if(this.armorLvl == 1)
+        {
+            return (int)(Math.random() * 10) + 2;
+        }
+        if(this.armorLvl == 2)
+        {
+            return (int)(Math.random() * 12) + 2;
+        }
+        if(this.armorLvl == 3)
+        {
+            return (int)(Math.random() * 19) + 1;
+        }
+
+        return 0;
     }
 
     public void health(int health)

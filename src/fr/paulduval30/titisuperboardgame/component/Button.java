@@ -108,7 +108,7 @@ public class Button extends Component
             gg.setColor(naturalColor);
         else
             gg.setColor(overColor);
-        gg.fillRect(this.posX, this.posY, this.width,this.getHeight());
+        gg.fillRoundRect(this.posX, this.posY, this.width,this.getHeight(),10,10);
         gg.setColor(Color.RED);
         gg.setFont(new Font("Dialog", Font.BOLD, 20));
         gg.drawString(this.text, this.posX + 10, this.posY + this.height / 2 + 5);

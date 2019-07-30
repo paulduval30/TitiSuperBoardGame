@@ -36,6 +36,8 @@ public class Map
                     this.grid[i][j] = (new Cell(i,j,"mountain", false,1));
                 if(map[i][j].equals("e"))
                     this.grid[i][j] = (new Cell(i,j,"empty", true,1));
+                if(map[i][j].equals("s"))
+                    this.grid[i][j] = (new Cell(i,j,"sand", true,2));
             }
         }
 

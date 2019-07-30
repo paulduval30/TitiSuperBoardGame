@@ -38,7 +38,7 @@ public class CharacterDescription extends Component
     @Override
     public void render(GameEngine engine, GameGraphics gg)
     {
-        gg.setColor(Color.WHITE);
+        gg.setColor(Color.LIGHT_GRAY);
         Font font = new Font("arial",Font.BOLD, 24);
         gg.setFont(font);
         gg.fillRoundRect(posX, posY, width, height, 5, 5);
@@ -61,8 +61,8 @@ public class CharacterDescription extends Component
         int s1 = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
         int s2 = ((engine.getWidth() - (int)(engine.getWidth() * 0.4)) / game.getMap().getNbCol());
         int size = s1 < s2 ? s1 : s2;
-        this.posX = size * game.getMap().getNbCol() + 20;
-        this.posY = 0;
+        this.posX = size * game.getMap().getNbCol() + 80;
+        this.posY = 20;
         this.width = engine.getWidth() - this.posX;
         this.height = (int)(engine.getHeight() * 0.8);
 
