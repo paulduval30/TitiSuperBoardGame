@@ -12,8 +12,11 @@ import fr.paulduval30.titisuperboardgame.game.Game;
 import fr.paulduval30.titisuperboardgame.game.Team;
 import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,6 +31,7 @@ public class CharacterPicker extends Component
     private String choice;
     private Game game;
     private int nbPick;
+    private HashMap<String, Image> images;
 
     public CharacterPicker(HashMap<String, String[]> characters, Game g)
     {
@@ -35,6 +39,18 @@ public class CharacterPicker extends Component
         this.choice = "";
         this.game = g;
         this.nbPick = 0;
+        this.images = new HashMap<>();
+        for(String s : characters.keySet())
+        {
+            try
+            {
+                images.put(s, ImageIO.read(new File("res/icone" + (int)(Math.random()* 10) + ".jpg")));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -55,13 +71,15 @@ public class CharacterPicker extends Component
         int col = 0;
         if(characters.get((characters.keySet().toArray()[0]))[10].equals("true"))
         {
-            gg.setColor(Color.BLACK);
+            gg.setColor(new Color(0,0,0,75));
         }
         else
         {
-            gg.setColor(Color.DARK_GRAY);
+            gg.setColor(new Color(0,0,0,0));
         }
+        gg.drawImage(images.get(characters.keySet().toArray()[0]),this.posX + (col )* size,this.posY + line * size, size,size);
         gg.fillRoundRect(this.posX + (col )* size,this.posY + line * size, size,size,10,10);
+
 
         for(int i = 1; i < characters.keySet().toArray().length; i++)
         {
@@ -72,22 +90,19 @@ public class CharacterPicker extends Component
             }
             else
                 col ++;
-            System.out.println(line + " " + col + " " + i);
 
             if(i >= characters.size())
             {
                 continue;
             }
+            gg.setColor(Color.BLACK);
+            gg.drawImage(images.get(characters.keySet().toArray()[i]),this.posX + (col )* size,this.posY + line * size, size,size);
+            gg.drawRect(this.posX + (col )* size,this.posY + line * size, size,size);
             if(characters.get((characters.keySet().toArray()[i]))[10].equals("true"))
             {
-                gg.setColor(Color.BLACK);
+                gg.setColor(new Color(0,0,0,150));
+                gg.fillRect(this.posX + (col )* size,this.posY + line * size, size,size);
             }
-            else
-            {
-                gg.setColor(Color.DARK_GRAY);
-            }
-            gg.fillRoundRect(this.posX + (col )* size,this.posY + line * size, size,size,10,10);
-
         }
 
         gg.setColor(Color.lightGray);
@@ -112,7 +127,7 @@ public class CharacterPicker extends Component
             gg.setFont(font);
             gg.drawString(name,this.posX, posY2 + 30);
             gg.drawString("life : " + life,this.posX + this.width / 5, posY2 + 30);
-            gg.drawString("??? : " + jsaispas,this.posX + this.width / 5 * 2, posY2 + 20);
+            gg.drawString("Niveau d'arme " + jsaispas,this.posX + this.width / 5 * 2, posY2 + 20);
             gg.drawString("Armure : " + armure,this.posX + this.width / 5 * 3, posY2 + 20);
             gg.drawString("Coup sournois : " + coupsournois,this.posX, posY2 + this.height / 20 * 2 + 20);
             gg.drawString("PM : " + pm,this.posX  + this.width / 5, posY2 + this.height / 20 * 2 + 20);
@@ -155,6 +170,8 @@ public class CharacterPicker extends Component
             String att2 = data[8];
             String att3 = data[9];
             String state = data[10];
+
+            int lvlArmure = armure.equals("LEG") ? 1 : armure.equals("INT") ? 2 : 3;
             if(engine.getInput().isMousePressed(MouseEvent.BUTTON1) && state.equals("false"))
             {
                 ArrayList<Team> teams = game.getTeams();
