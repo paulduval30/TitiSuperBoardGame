@@ -13,6 +13,7 @@ import fr.paulduval30.titisuperboardgame.game.Team;
 import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -103,6 +104,13 @@ public class CharacterPicker extends Component
                 gg.setColor(new Color(0,0,0,150));
                 gg.fillRect(this.posX + (col )* size,this.posY + line * size, size,size);
             }
+
+            if(this.choice.equals(characters.keySet().toArray()[i]))
+            {
+                gg.setColor(Color.GREEN);
+                gg.drawRoundRect(this.posX + (col )* size, this.posY+line*size,size,size,3,3);
+
+            }
         }
 
         gg.setColor(Color.lightGray);
@@ -171,6 +179,10 @@ public class CharacterPicker extends Component
             String att3 = data[9];
             String state = data[10];
 
+
+
+
+
             int lvlArmure = armure.equals("LEG") ? 1 : armure.equals("INT") ? 2 : 3;
             if(engine.getInput().isMousePressed(MouseEvent.BUTTON1) && state.equals("false"))
             {
@@ -207,6 +219,7 @@ public class CharacterPicker extends Component
                 game.addPlayer(c, picking);
                 nbPick ++;
                 characters.get(choice)[10] = "true";
+
                 if(nbPick == 4)
                 {
                     game.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" , true));

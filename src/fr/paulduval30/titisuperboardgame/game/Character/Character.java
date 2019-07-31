@@ -25,6 +25,7 @@ public class Character
     private int life;
     private Team team;
     private int armorLvl;
+    private int mainPowerLvl;
 
     public Character(String name, int line, int col, int pm, int nbAction, int life, Game game, Team team)
     {
