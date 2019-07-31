@@ -11,6 +11,7 @@ import fr.paulduval30.titisuperboardgame.game.Character.actions.LameDuSacrifice;
 import fr.paulduval30.titisuperboardgame.game.Game;
 import fr.paulduval30.titisuperboardgame.game.Team;
 import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
+import fr.paulduval30.titisuperboardgame.test.TestSon;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -18,10 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
 import java.io.IOException;
-
-import javafx.util.Duration;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 
 
@@ -37,9 +34,8 @@ public class CharacterPicker extends Component
     private Game game;
     private int nbPick;
     private HashMap<String, Image> images;
-    private MediaPlayer musicPlayer;
-    private Media mp3File;
-    
+
+
 
 
 
@@ -112,6 +108,9 @@ public class CharacterPicker extends Component
             {
                 gg.setColor(new Color(0,0,0,150));
                 gg.fillRect(this.posX + (col )* size,this.posY + line * size, size,size);
+                TestSon testson = new TestSon();
+                testson.jouerSon();
+
             }
 
             if(this.choice.equals(characters.keySet().toArray()[i]))
