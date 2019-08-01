@@ -58,6 +58,7 @@ public class CharacterDescription extends Component
     @Override
     public void update(GameEngine engine)
     {
+
         int s1 = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
         int s2 = ((engine.getWidth() - (int)(engine.getWidth() * 0.4)) / game.getMap().getNbCol());
         int size = s1 < s2 ? s1 : s2;
