@@ -124,6 +124,5 @@ public class Button extends Component
         }
         else
             isOver = false;
-
     }
 }

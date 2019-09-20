@@ -2,6 +2,7 @@ package fr.paulduval30.titisuperboardgame.game.Character;
 
 import fr.paulduval30.titisuperboardgame.dialog.ActionDialogBox;
 import fr.paulduval30.titisuperboardgame.game.Character.actions.Action;
+import fr.paulduval30.titisuperboardgame.game.Character.status.Status;
 import fr.paulduval30.titisuperboardgame.game.Game;
 import fr.paulduval30.titisuperboardgame.game.Team;
 
@@ -27,8 +28,11 @@ public class Character
     private int armorLvl;
     private int mainPowerLvl;
 
+    private ArrayList<Status> status;
+
     public Character(String name, int line, int col, int pm, int nbAction, int life, Game game, Team team)
     {
+        this.status = new ArrayList<>();
         this.team = team;
         this.name = name;
         this.line = line;
@@ -46,9 +50,13 @@ public class Character
         this.calculerMatricePoids(0, this.line, this.col);
     }
 
+    public void addStatus(Status s)
+    {
+        this.status.add(s);
+    }
+
     public void resetMatricePoids()
     {
-        System.out.println(this.name + " " + this.nbAction);
 
         for(int i = 0; i < matricePoids.length; i++)
         {
@@ -111,6 +119,10 @@ public class Character
         Team t = current.getTeam();
         current.setNbAction(t.getNbAction().get(choice));
         t.takeAction(current.getNbAction());
+        for(Status s : status)
+        {
+            s.act(this);
+        }
     }
 
     /**
@@ -119,7 +131,6 @@ public class Character
     public void endTurn()
     {
         this.isCurrent = false;
-        System.out.println("END TURN" + this.name + this.nbAction);
 
     }
 
@@ -207,24 +218,23 @@ public class Character
     private void calculerMatricePoids(int id, int ligneSource, int colSource)
     {
         this.matricePoids[ligneSource][colSource] = id;
-        id += this.game.getMap().getCost(ligneSource, colSource);
-
+        //id += this.game.getMap().getCost(ligneSource, colSource);
         if(id <= this.pm)
         {
             if(ligneSource - 1 >= 0 && this.game.getMap().getGrid()[ligneSource - 1][colSource].isWalkable()
                     && matricePoids[ligneSource - 1][colSource] > id)
             {
-                this.calculerMatricePoids(id, ligneSource - 1, colSource);
+                this.calculerMatricePoids(id + this.game.getMap().getCost(ligneSource - 1, colSource), ligneSource - 1, colSource);
             }
             if(ligneSource + 1 < this.game.getMap().getNbLine() && this.game.getMap().getGrid()[ligneSource + 1][colSource].isWalkable()
                     && matricePoids[ligneSource + 1][colSource] > id)
-                this.calculerMatricePoids(id, ligneSource + 1, colSource);
+                this.calculerMatricePoids(id  + this.game.getMap().getCost(ligneSource + 1, colSource), ligneSource + 1, colSource);
             if(colSource - 1 >= 0 && this.game.getMap().getGrid()[ligneSource][colSource - 1].isWalkable()
                     && matricePoids[ligneSource][colSource - 1] > id)
-                this.calculerMatricePoids(id, ligneSource, colSource - 1);
+                this.calculerMatricePoids(id + this.game.getMap().getCost(ligneSource, colSource - 1), ligneSource, colSource - 1);
             if(colSource + 1 < this.game.getMap().getNbCol() && this.game.getMap().getGrid()[ligneSource][colSource + 1].isWalkable()
                     && matricePoids[ligneSource][colSource + 1] > id)
-                this.calculerMatricePoids(id, ligneSource, colSource + 1);
+                this.calculerMatricePoids(id + this.game.getMap().getCost(ligneSource, colSource + 1), ligneSource, colSource + 1);
         }
     }
 

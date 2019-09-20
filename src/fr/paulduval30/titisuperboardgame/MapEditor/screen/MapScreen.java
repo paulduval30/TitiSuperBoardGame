@@ -1,4 +1,4 @@
-package fr.paulduval30.titisuperboardgame.screens;
+package fr.paulduval30.titisuperboardgame.MapEditor.screen;
 
 import fr.paulduval30.titisuperboardgame.component.CharacterDescription;
 import fr.paulduval30.titisuperboardgame.component.CharacterMenu;
@@ -6,24 +6,23 @@ import fr.paulduval30.titisuperboardgame.component.GameGrid;
 import fr.paulduval30.titisuperboardgame.engine.Component;
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
 import fr.paulduval30.titisuperboardgame.engine.GameGraphics;
-import fr.paulduval30.titisuperboardgame.engine.Screen;
 import fr.paulduval30.titisuperboardgame.game.Game;
+import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
 
 import java.util.ArrayList;
 
-public class BoardScreen extends Screen
+public class MapScreen extends BoardScreen
 {
     private static int SIZE = 50;
     private final Game game;
     private ArrayList<Component> components;
 
-    public BoardScreen(Game g)
+    public MapScreen(Game g)
     {
-        super();
+        super(g);
         this.game = g;
         this.components = new ArrayList<>();
-        this.components.add(new GameGrid(game));
-        this.components.add(new CharacterMenu(game));
+        this.components.add(new GridComponentEdition(game));
         if(game.getPlayers().size() != 0)
             this.components.add(new CharacterDescription(game.getCurrentPlayer(), game));
         game.initGame();

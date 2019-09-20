@@ -8,6 +8,7 @@ import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNivea
 import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauTrois;
 import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauUn;
 import fr.paulduval30.titisuperboardgame.game.Character.actions.LameDuSacrifice;
+import fr.paulduval30.titisuperboardgame.game.Character.status.Poison;
 import fr.paulduval30.titisuperboardgame.game.Game;
 import fr.paulduval30.titisuperboardgame.game.Team;
 import fr.paulduval30.titisuperboardgame.screens.BoardScreen;
@@ -32,6 +33,9 @@ public class CharacterPicker extends Component
     private int nbPick;
     private HashMap<String, Image> images;
     private CharacterPickDescription characterPickDescription;
+    private Image po;
+    private Image pm;
+    private Image life;
 
     public CharacterPicker(HashMap<String, String[]> characters, Game g)
     {
@@ -40,6 +44,16 @@ public class CharacterPicker extends Component
         this.game = g;
         this.nbPick = 0;
         this.images = new HashMap<>();
+        try
+        {
+            this.po = ImageIO.read(new File("res/PO.png"));
+            this.pm = ImageIO.read(new File("res/PM.png"));
+            this.life = ImageIO.read(new File("res/life.png"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         for(String s : characters.keySet())
         {
             try
@@ -74,14 +88,20 @@ public class CharacterPicker extends Component
             int col = 0;
             if(characters.get((characters.keySet().toArray()[0]))[10].equals("true"))
             {
-                gg.setColor(new Color(0,0,0,75));
+                gg.setColor(new Color(0,0,0,150));
             }
             else
             {
                 gg.setColor(new Color(0,0,0,0));
             }
             gg.drawImage(images.get(characters.keySet().toArray()[0]),this.posX + (col )* size,this.posY + line * size, size,size);
-            gg.fillRoundRect(this.posX + (col )* size,this.posY + line * size, size,size,10,10);
+            gg.fillRect(this.posX + (col )* size,this.posY + line * size, size,size);
+            if(this.choice.equals(characters.keySet().toArray()[0]))
+            {
+                gg.setColor(new Color(Color.GREEN.getRed(), Color.GREEN.getGreen(), Color.GREEN.getBlue(),150));
+                gg.fillRect(this.posX + (col )* size, this.posY+line*size,size,size);
+
+            }
 
 
             for(int i = 1; i < characters.keySet().toArray().length; i++)
@@ -116,7 +136,19 @@ public class CharacterPicker extends Component
                 }
             }
             gg.setColor(Color.lightGray);
-            gg.fillRoundRect(this.posX, this.posY + this.height, this.width, this.height / 2, 10,10);
+            gg.fillRoundRect(this.posX, this.posY + this.height, this.width, this.height / 10, 10,10);
+            gg.setColor(Color.BLACK);
+            if(!choice.equals(""))
+            {
+                gg.drawString("Name : " + choice, this.posX, this.posY + this.height + this.height / 15);
+                gg.drawImage(this.life, this.posX + this.width / 5, this.posY + this.height + (this.height / 10) / 2 - 10, 20 , 20);
+                gg.drawString( " : " + this.characters.get(choice)[1], this.posX + this.width / 5 + 20, this.posY + this.height + this.height / 15);
+                gg.drawImage(this.po, this.posX + this.width / 5 * 2, this.posY + this.height + (this.height / 10) / 2 - 10, 20 , 20);
+                gg.drawString( " : " + this.characters.get(choice)[6], this.posX + this.width / 5 * 2 + 20, this.posY + this.height + this.height / 15);
+                gg.drawImage(this.pm, this.posX + this.width / 5 * 3, this.posY + this.height + (this.height / 10) / 2 - 10, 20 , 20);
+                gg.drawString( " : " + this.characters.get(choice)[5], this.posX + this.width / 5 * 3 + 20, this.posY + this.height + this.height / 15);
+
+            }
         }
         else
             characterPickDescription.render(engine,gg);
@@ -167,7 +199,6 @@ public class CharacterPicker extends Component
                         picking = t;
                     }
                 }
-
                 int line = 0;
                 int colonne = 0;
                 if(game.getCharacter(0,0) != null)
@@ -209,6 +240,10 @@ public class CharacterPicker extends Component
                     game.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
                     game.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
                     game.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
+                    game.getPlayers().get(0).addStatus(new Poison(10));
+                    game.getPlayers().get(1).addStatus(new Poison(10));
+                    game.getPlayers().get(2).addStatus(new Poison(10));
+                    game.getPlayers().get(3).addStatus(new Poison(10));
                     engine.setScreen(new BoardScreen(game));
                 }
             }

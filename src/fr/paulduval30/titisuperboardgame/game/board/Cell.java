@@ -8,6 +8,7 @@ public class Cell
     private boolean walkable;
     private int cost;
 
+
     public Cell(int line, int col, String type, boolean walkable, int cost)
     {
         this.line = line;

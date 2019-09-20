@@ -83,7 +83,7 @@ public class GameGrid extends Component
             }
         }
 
-        if(this.game.getAction() == null)
+        if(this.game.getAction() == null && this.game.getPlayers().size() != 0)
         {
             gg.setColor(new Color(66, 244, 66,80));
 
@@ -100,7 +100,7 @@ public class GameGrid extends Component
                 }
             }
         }
-        else
+        else if(this.game.getPlayers().size() != 0)
         {
             gg.setColor(new Color(150, 194, 255, 80));
             Action action = this.game.getAction();
@@ -110,7 +110,7 @@ public class GameGrid extends Component
                 {
                     if(Math.abs(i - this.game.getCurrentPlayer().getLine()) + Math.abs(j - this.game.getCurrentPlayer().getCol()) < action.getPo())
                     {
-                        gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
+                            gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
 
                     }
                 }
@@ -139,12 +139,11 @@ public class GameGrid extends Component
         if(engine.getInput().isMousePressed(MouseEvent.BUTTON1))
         {
 
-            System.out.println(line + " " + col + " " + (line >= 0 && line < game.getMap().getNbLine() && col <= 0 && col < game.getMap().getNbCol()));
-            if(line >= 0 && line < game.getMap().getNbLine() && col >= 0 && col < game.getMap().getNbCol())
+            if(line >= 0 && line < game.getMap().getNbLine() && col >= 0 && col < game.getMap().getNbCol() && this.game.getPlayers().size() != 0)
             {
                 if(game.getAction() == null)
                     game.moove(game.getCurrentPlayer(),line, col);
-                else
+                else if(this.game.getPlayers().size() != 0)
                 {
                     Character target = game.getCharacter(line, col);
                     Character source = game.getCurrentPlayer();

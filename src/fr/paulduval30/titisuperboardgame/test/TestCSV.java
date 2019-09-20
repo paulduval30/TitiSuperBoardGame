@@ -13,7 +13,6 @@ public class TestCSV {
             String line;
             while((line = reader.readLine()) != null)
             {
-                System.out.println(line);
                 String[] data = line.split(",");
 //                String name = data[0];
 //                String life = data[1];

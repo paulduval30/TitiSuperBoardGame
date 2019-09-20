@@ -29,7 +29,8 @@ public class Game
 
     public void initGame()
     {
-        this.players.get(0).startTurn();
+        if(players.size() != 0)
+            this.players.get(0).startTurn();
     }
 
 

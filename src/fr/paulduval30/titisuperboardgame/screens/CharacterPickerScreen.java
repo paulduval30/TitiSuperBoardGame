@@ -26,7 +26,6 @@ public class CharacterPickerScreen extends Screen
             String line;
             while((line = reader.readLine()) != null)
             {
-                System.out.println(line);
                 String[] carac = line.split(",");
                 String[] data = new String[carac.length + 1];
                 for (int i = 0; i < carac.length; i++)

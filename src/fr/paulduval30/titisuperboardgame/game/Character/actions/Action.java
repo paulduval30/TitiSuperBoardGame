@@ -1,6 +1,7 @@
 package fr.paulduval30.titisuperboardgame.game.Character.actions;
 
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
+import fr.paulduval30.titisuperboardgame.game.board.Map;
 
 public abstract class Action
 {

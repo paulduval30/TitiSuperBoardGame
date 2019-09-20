@@ -72,7 +72,6 @@ public class CharacterPickDescription extends Component
         this.posY = (int)(engine.getHeight() * 0.1f);
         this.width = (int)(engine.getWidth() * 0.8f);
         this.height = (int)(engine.getHeight() * 0.8f);
-        System.out.println(posX + " " + posY + " " + width +" " + engine.getHeight());
 
         int mouseX = engine.getInput().getMouseX();
         int mouseY = engine.getInput().getMouseY();
