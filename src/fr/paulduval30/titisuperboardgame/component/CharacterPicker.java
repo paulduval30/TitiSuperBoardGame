@@ -56,10 +56,12 @@ public class CharacterPicker extends Component
         {
             try
             {
-                images.put(s, ImageIO.read(new File("res/icone" + (int)(Math.random()* 10) + ".jpg")));
+                images.put(s, ImageIO.read(new File("res/" + s + ".jpg")));
             }
             catch (IOException e)
             {
+                System.out.println(s);
+
                 e.printStackTrace();
             }
         }
@@ -222,7 +224,7 @@ public class CharacterPicker extends Component
 
                 if(nbPick == 4)
                 {
-                    game.getPlayers().get(0).addAction("Fleche de Teleportation", new FlecheDeTeleportation(6, true,"Arme LVL 1" , true, game));
+                    game.getPlayers().get(0).addAction("Derobade", new Derobade(6, true,"Derobade" , true, game));
                     game.getPlayers().get(0).addAction("Promesse", new Promesse(6, true, "Promesse", true, game));
                     game.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", false, game));
                     game.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", true, game));

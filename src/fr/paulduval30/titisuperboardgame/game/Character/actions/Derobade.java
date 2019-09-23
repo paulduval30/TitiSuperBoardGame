@@ -15,10 +15,12 @@ public class Derobade extends Action
     @Override
     public void act(Character target, Character origin, int line, int col)
     {
+        boolean exist = false;
         for(Status s : origin.getStatus())
         {
             if(s.getName().equals("Derobade"))
             {
+                exist = true;
                 boolean success = ((DerobadeBuff)s).addTurn();
                 if(success)
                 {
@@ -28,7 +30,10 @@ public class Derobade extends Action
             }
 
         }
-        origin.addStatus(new DerobadeBuff(1));
-        origin.nextAction();
+        if(!exist)
+        {
+            origin.addStatus(new DerobadeBuff(1, game));
+            origin.nextAction();
+        }
     }
 }

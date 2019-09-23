@@ -1,14 +1,15 @@
 package fr.paulduval30.titisuperboardgame.game.Character.status;
 
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
+import fr.paulduval30.titisuperboardgame.game.Game;
 
 public class DammageBoost extends Status
 {
     private int dommageMin;
     private int dommageMax;
-    public DammageBoost(int nbTurn, int dommageMin, int dommageMax)
+    public DammageBoost(int nbTurn, int dommageMin, int dommageMax, Game game)
     {
-        super(nbTurn, "onHit", "DommageBoost");
+        super(nbTurn, "onHit", "DommageBoost", game);
         this.nbTurn = 1;
         this.dommageMin = dommageMin;
         this.dommageMax = dommageMax;

@@ -26,7 +26,7 @@ public class Promesse extends Action
             origin.setCol(tmpCol);
 
             game.setState("acting",origin.getActions().get("Arme LVL 3"));
-            origin.addStatus(new DammageBoost(1,1,10));
+            origin.addStatus(new DammageBoost(1,1,10, game));
 
             origin.nextAction();
         }

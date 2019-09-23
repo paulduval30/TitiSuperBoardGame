@@ -263,6 +263,14 @@ public class Character
 
     public void dammage(int dammage)
     {
+        for(Status s : status)
+        {
+            if(s.getName().equals("Derobade"))
+            {
+                s.act(this);
+                return;
+            }
+        }
         this.life -= dammage;
     }
 
@@ -307,5 +315,10 @@ public class Character
     public ArrayList<Status> getStatus()
     {
         return status;
+    }
+
+    public void setLife(int life)
+    {
+        this.life = life;
     }
 }
