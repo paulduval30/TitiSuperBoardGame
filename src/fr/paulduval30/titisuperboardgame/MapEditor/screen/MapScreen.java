@@ -1,8 +1,7 @@
 package fr.paulduval30.titisuperboardgame.MapEditor.screen;
 
+import fr.paulduval30.titisuperboardgame.MapEditor.Component.GridComponentEdition;
 import fr.paulduval30.titisuperboardgame.component.CharacterDescription;
-import fr.paulduval30.titisuperboardgame.component.CharacterMenu;
-import fr.paulduval30.titisuperboardgame.component.GameGrid;
 import fr.paulduval30.titisuperboardgame.engine.Component;
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
 import fr.paulduval30.titisuperboardgame.engine.GameGraphics;

@@ -121,7 +121,10 @@ public class Character
         t.takeAction(current.getNbAction());
         for(Status s : status)
         {
-            s.act(this);
+            if(s.getTrigger().equals("onTurn"))
+                s.act(this);
+            if(s.getNbTurn() == 0)
+                status.remove(s);
         }
     }
 
@@ -299,5 +302,10 @@ public class Character
         }
 
 
+    }
+
+    public ArrayList<Status> getStatus()
+    {
+        return status;
     }
 }

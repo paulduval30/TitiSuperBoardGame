@@ -4,10 +4,8 @@ import fr.paulduval30.titisuperboardgame.engine.Component;
 import fr.paulduval30.titisuperboardgame.engine.GameEngine;
 import fr.paulduval30.titisuperboardgame.engine.GameGraphics;
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
-import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauDeux;
-import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauTrois;
-import fr.paulduval30.titisuperboardgame.game.Character.actions.AttaqueArmeNiveauUn;
-import fr.paulduval30.titisuperboardgame.game.Character.actions.LameDuSacrifice;
+import fr.paulduval30.titisuperboardgame.game.Character.actions.*;
+import fr.paulduval30.titisuperboardgame.game.Character.status.DammageBoost;
 import fr.paulduval30.titisuperboardgame.game.Character.status.Poison;
 import fr.paulduval30.titisuperboardgame.game.Game;
 import fr.paulduval30.titisuperboardgame.game.Team;
@@ -224,26 +222,22 @@ public class CharacterPicker extends Component
 
                 if(nbPick == 4)
                 {
-                    game.getPlayers().get(0).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true,"Arme LVL 1" , true));
-                    game.getPlayers().get(0).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
-                    game.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", false));
-                    game.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", true));
-                    game.getPlayers().get(1).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
-                    game.getPlayers().get(1).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
-                    game.getPlayers().get(1).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
-                    game.getPlayers().get(1).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
-                    game.getPlayers().get(2).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
-                    game.getPlayers().get(2).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
-                    game.getPlayers().get(2).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
-                    game.getPlayers().get(2).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
-                    game.getPlayers().get(3).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true));
-                    game.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true));
-                    game.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true));
-                    game.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false));
-                    game.getPlayers().get(0).addStatus(new Poison(10));
-                    game.getPlayers().get(1).addStatus(new Poison(10));
-                    game.getPlayers().get(2).addStatus(new Poison(10));
-                    game.getPlayers().get(3).addStatus(new Poison(10));
+                    game.getPlayers().get(0).addAction("Fleche de Teleportation", new FlecheDeTeleportation(6, true,"Arme LVL 1" , true, game));
+                    game.getPlayers().get(0).addAction("Promesse", new Promesse(6, true, "Promesse", true, game));
+                    game.getPlayers().get(0).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", false, game));
+                    game.getPlayers().get(0).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", true, game));
+                    game.getPlayers().get(1).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true, game));
+                    game.getPlayers().get(1).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true, game));
+                    game.getPlayers().get(1).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true, game));
+                    game.getPlayers().get(1).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false, game));
+                    game.getPlayers().get(2).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true, game));
+                    game.getPlayers().get(2).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true, game));
+                    game.getPlayers().get(2).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true, game));
+                    game.getPlayers().get(2).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false, game));
+                    game.getPlayers().get(3).addAction("Arme LVL 1", new AttaqueArmeNiveauUn(6, true, "Arme LVL 1", true, game));
+                    game.getPlayers().get(3).addAction("Arme LVL 2", new AttaqueArmeNiveauDeux(6, true, "Arme LVL 2", true, game));
+                    game.getPlayers().get(3).addAction("Arme LVL 3", new AttaqueArmeNiveauTrois(6, true, "Arme LVL 3", true, game));
+                    game.getPlayers().get(3).addAction("Lame Du Sacrifice", new LameDuSacrifice(6, true, "Lame Du Sacrifice", false, game));
                     engine.setScreen(new BoardScreen(game));
                 }
             }

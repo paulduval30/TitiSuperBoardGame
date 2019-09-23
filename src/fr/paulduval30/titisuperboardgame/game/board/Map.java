@@ -7,6 +7,7 @@ public class Map
     private int nbLine;
     private int nbCol;
     private Cell[][] grid;
+    private String[][] stringMap;
 
     public Map(int nbLine, int nbCol)
     {
@@ -25,6 +26,7 @@ public class Map
 
     public Map(String[][] map)
     {
+        this.stringMap = map;
         this.grid = new Cell[map.length][map[0].length];
         for (int i = 0; i < map.length; i++)
         {
@@ -79,12 +81,43 @@ public class Map
 
     public void setCell(int line, int col, String type, boolean walkable, int cost)
     {
+        String charCell = "e";
+        if(type.equals("forest"))
+            charCell = "f";
+        if(type.equals("water"))
+            charCell = "w";
+        if(type.equals("mountain"))
+            charCell = "m";
+        if(type.equals("empty"))
+            charCell = "e";
+        this.stringMap[line][col] = charCell;
         this.grid[line][col] = new Cell(line, col, type, walkable, cost);
     }
 
     public int getCost(int line, int col)
     {
         return this.grid[line][col].getCost();
+    }
+
+    public String toMapString()
+    {
+        String sRet = "{";
+        for(int i = 0; i < nbLine; i++)
+        {
+            sRet += "{";
+            for(int j = 0; j < nbCol; j++)
+            {
+                sRet += "\"" + stringMap[i][j] + "\"";
+                if(j != nbCol - 1)
+                    sRet += ",";
+            }
+            sRet += "}";
+            if(i != nbLine - 1)
+                sRet += ",";
+            sRet += "\n";
+        }
+        sRet += "};";
+        return sRet;
     }
 
 }

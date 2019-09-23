@@ -7,9 +7,9 @@ import java.awt.*;
 public class Poison extends Status
 {
 
-    public Poison(int time)
+    public Poison(int nbTurn)
     {
-        this.nbTurn = time;
+        super(nbTurn, "onTurn", "Poison");
     }
     @Override
     public void act(Character target)

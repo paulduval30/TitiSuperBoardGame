@@ -15,13 +15,15 @@ import java.io.IOException;
 
 public class GameGrid extends Component
 {
-    private static int SIZE = 0;
+    protected int size = 0;
     private Game game;
     private Image forest;
     private Image terre;
     private Image mountain;
     private Image water;
     private Image sable;
+    protected int deltaX;
+    protected int deltaY;
 
     public GameGrid(Game game)
     {
@@ -38,6 +40,9 @@ public class GameGrid extends Component
         {
             e.printStackTrace();
         }
+
+        this.deltaX = 20;
+        this.deltaY = 20;
     }
     @Override
     public void init()
@@ -50,7 +55,7 @@ public class GameGrid extends Component
     {
 
         gg.setColor(Color.BLACK);
-        gg.fillRect(0,0, engine.getWidth(), engine.getHeight() );
+//        gg.fillRect(0,0, engine.getWidth(), engine.getHeight() );
         gg.setColor(new Color(189, 137, 55));
 
 
@@ -60,25 +65,24 @@ public class GameGrid extends Component
             for(int j = 0; j < this.game.getMap().getNbLine(); j ++)
             {
 
-                gg.fillRect(20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
                 if(this.game.getMap().getGrid()[j][i].getType().equals("forest"))
                 {
-                    gg.drawImage(forest,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                    gg.drawImage(forest,deltaX + i * this.size, deltaY + j * this.size, this.size,this.size);
                 }if(this.game.getMap().getGrid()[j][i].getType().equals("sand"))
                 {
-                    gg.drawImage(sable,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                    gg.drawImage(sable,deltaX + i * this.size, deltaY + j * this.size, this.size,this.size);
                 }
                 if(this.game.getMap().getGrid()[j][i].getType().equals("empty"))
                 {
-                    gg.drawImage(terre,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                    gg.drawImage(terre,deltaX + i * this.size, deltaY + j * this.size, this.size,this.size);
                 }
                 if(this.game.getMap().getGrid()[j][i].getType().equals("water"))
                 {
-                    gg.drawImage(water,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                    gg.drawImage(water,deltaX + i * this.size, deltaY + j * this.size, this.size,this.size);
                 }
                 if(this.game.getMap().getGrid()[j][i].getType().equals("mountain"))
                 {
-                    gg.drawImage(mountain,20 + i * SIZE, 20 + j * SIZE, SIZE,SIZE);
+                    gg.drawImage(mountain,deltaX + i * this.size, deltaY + j * this.size, this.size,this.size);
                 }
             }
         }
@@ -94,8 +98,8 @@ public class GameGrid extends Component
                 {
                     if (matricePoids[i][j] <= game.getCurrentPlayer().getCurrentPM())
                     {
-                        gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
-                        gg.drawString(matricePoids[i][j] + "", 21 + j * SIZE, 21 + i * SIZE);
+                        gg.fillRect(deltaX + 1 + j * this.size, deltaY + 1 + i * this.size, this.size - 1, this.size - 1);
+                        gg.drawString(matricePoids[i][j] + "", deltaX + 1 + j * this.size, deltaY + 1 + i * this.size);
                     }
                 }
             }
@@ -110,7 +114,7 @@ public class GameGrid extends Component
                 {
                     if(Math.abs(i - this.game.getCurrentPlayer().getLine()) + Math.abs(j - this.game.getCurrentPlayer().getCol()) < action.getPo())
                     {
-                            gg.fillRect(21 + j * SIZE, 21 + i * SIZE, SIZE - 1, SIZE - 1);
+                            gg.fillRect(deltaX + 1 + j * this.size, deltaY + 1 + i * this.size, this.size - 1, this.size - 1);
 
                     }
                 }
@@ -122,7 +126,7 @@ public class GameGrid extends Component
                 gg.setColor(Color.GREEN);
             else
                 gg.setColor(Color.BLUE);
-            gg.fillOval(22.5f + c.getCol() * SIZE, 22.5f + c.getLine() * SIZE, SIZE - 5, SIZE - 5);
+            gg.fillOval(22.5f + c.getCol() * this.size, 22.5f + c.getLine() * this.size, this.size - 5, this.size - 5);
         }
     }
 
@@ -131,11 +135,11 @@ public class GameGrid extends Component
     {
         int s1 = ((engine.getHeight() - (int)(engine.getHeight() * 0.2)) / game.getMap().getNbLine());
         int s2 = ((engine.getWidth() - (int)(engine.getWidth() * 0.4)) / game.getMap().getNbCol());
-        SIZE = s1 < s2 ? s1 : s2;
-        if(SIZE == 0)
+        this.size = s1 < s2 ? s1 : s2;
+        if(this.size == 0)
             return;
-        int line = (engine.getInput().getMouseY() - 20) / SIZE;
-        int col = (engine.getInput().getMouseX() - 20) / SIZE;
+        int line = (engine.getInput().getMouseY() - 20) / this.size;
+        int col = (engine.getInput().getMouseX() - 20) / this.size;
         if(engine.getInput().isMousePressed(MouseEvent.BUTTON1))
         {
 
@@ -147,7 +151,7 @@ public class GameGrid extends Component
                 {
                     Character target = game.getCharacter(line, col);
                     Character source = game.getCurrentPlayer();
-                    game.getAction().act(target, source);
+                    game.getAction().act(target, source, line , col);
                     game.setState("Mooving", null);
                 }
             }

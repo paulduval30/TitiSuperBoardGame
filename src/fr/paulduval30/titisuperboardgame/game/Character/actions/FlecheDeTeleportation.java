@@ -3,9 +3,9 @@ package fr.paulduval30.titisuperboardgame.game.Character.actions;
 import fr.paulduval30.titisuperboardgame.game.Character.Character;
 import fr.paulduval30.titisuperboardgame.game.Game;
 
-public class LameDuSacrifice extends Action
+public class FlecheDeTeleportation extends Action
 {
-    public LameDuSacrifice(int po, boolean ldv, String name, boolean defendable, Game game)
+    public FlecheDeTeleportation(int po, boolean ldv, String name, boolean defendable, Game game)
     {
         super(po, ldv, name, defendable, game);
     }
@@ -13,8 +13,12 @@ public class LameDuSacrifice extends Action
     @Override
     public void act(Character target, Character origin, int line, int col)
     {
-        target.health((int)(Math.random() * 10) +2);
-        origin.dammage((int)(Math.random() * 19) + 1);
-        origin.nextAction();
+        if(game.getMap().getGrid()[line][col].isWalkable())
+        {
+            origin.setLine(line);
+            origin.setCol(col);
+            origin.nextAction();
+        }
+
     }
 }
